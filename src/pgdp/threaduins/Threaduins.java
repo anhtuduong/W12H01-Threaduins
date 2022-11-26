@@ -4,8 +4,8 @@ import java.io.PrintStream;
 
 public final class Threaduins {
 
-	static final String WORCAHOLIC_WORKING_MSG = "Leave me alone! I'm working!";
-	static final String WORCAHOLIC_STOP_MSG = "No! Why would you interrupt me?!?";
+	static final String WORKAHOLIC_WORKING_MSG = "Leave me alone! I'm working!";
+	static final String WORKAHOLIC_STOP_MSG = "No! Why would you interrupt me?!?";
 
 	static final String STOP_MSG = "Waiting for Signal!";
 	static final String STOPPED_MSG = "HeHe :D";
@@ -22,7 +22,7 @@ public final class Threaduins {
 	/**
 	 * This is a method you can use to set a custom Signal during testing.
 	 * 
-	 * @param ks custom KillSignal implementation.
+	 * @param ks custom Signal implementation.
 	 */
 	protected static void setSignal(Signal s) {
 		signal = s;

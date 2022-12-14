@@ -74,6 +74,10 @@ public final class Threaduins {
 	}
 
 	public static void main(String... args) {
+		// set a custom Signal
+		// in this case we use another ConsoleSignal
+		Threaduins.setSignal(new ConsoleSignal());
+
 		// workaholic example
 		final Thread workaholic = getWorkaholic(System.out);
 		stopWorkaholic(workaholic);

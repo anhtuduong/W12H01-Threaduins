@@ -22,7 +22,7 @@ public final class Threaduins {
 	/**
 	 * This is a method you can use to set a custom Signal during testing.
 	 * 
-	 * @param ks custom Signal implementation.
+	 * @param s custom Signal implementation.
 	 */
 	protected static void setSignal(Signal s) {
 		signal = s;

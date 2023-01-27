@@ -36,8 +36,12 @@ public final class Threaduins {
 	 * @return Thread of a workaholic penguin.
 	 */
 	public static Thread getWorkaholic(PrintStream s) {
-		// TODO
-		return null;
+		return new Thread(() -> {
+			while (!Thread.currentThread().isInterrupted()) {
+				s.println(WORKAHOLIC_WORKING_MSG);
+			}
+			s.println(WORKAHOLIC_STOP_MSG);
+		});
 	}
 
 	/**
@@ -48,7 +52,10 @@ public final class Threaduins {
 	 * @throws Exception
 	 */
 	public static void stopWorkaholic(Thread workaholic) {
-		// TODO
+		System.out.println(STOP_MSG);
+		signal.await();
+		workaholic.interrupt();
+		System.out.println(STOPPED_MSG);
 	}
 
 	/**
@@ -59,8 +66,12 @@ public final class Threaduins {
 	 * @return Thread of a procrastinating penguin.
 	 */
 	public static Thread getLuckyProcrastinator(PrintStream s) {
-		// TODO
-		return null;
+		return new Thread(() -> {
+			while (true) {
+				signal.await();
+				s.println(LUCKY_PROCRASTINATOR_WORKING_MSG);
+			}
+		});
 	}
 
 	/**
@@ -70,7 +81,8 @@ public final class Threaduins {
 	 * @param procrastinator Thread of a procrastinating penguin.
 	 */
 	public static void stopProcrastinator(Thread procrastinator) {
-		// TODO
+		signal.await();
+		procrastinator.interrupt();
 	}
 
 	public static void main(String... args) {

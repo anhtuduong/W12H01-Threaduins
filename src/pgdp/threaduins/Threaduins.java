@@ -72,12 +72,20 @@ public final class Threaduins {
 	 * @return Thread of a procrastinating penguin.
 	 */
 	public static Thread getLuckyProcrastinator(PrintStream s) {
-		return new Thread(() -> {
-			while (!Thread.currentThread().isInterrupted()) {
+		class PR extends Thread {
+			public void run() {
 				s.println(PROCRASTINATOR_PROCRASTINATING_MSG);
+				try {
+					synchronized (this) {
+						this.wait();
+					}
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				s.println(LUCKY_PROCRASTINATOR_WORKING_MSG);
 			}
-			s.println(LUCKY_PROCRASTINATOR_WORKING_MSG);
-		});
+		}
+		return new PR();
 	}
 
 	/**
@@ -88,13 +96,17 @@ public final class Threaduins {
 	 */
 	public static void stopProcrastinator(Thread procrastinator) {
 		procrastinator.start();
+		System.out.println(STOP_MSG);
 		signal.await();
-		procrastinator.interrupt();
+		synchronized (procrastinator) {
+			procrastinator.notify();
+		}
 		try {
 			procrastinator.join();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		System.out.println(STOPPED_MSG);
 	}
 
 	public static void main(String... args) {
